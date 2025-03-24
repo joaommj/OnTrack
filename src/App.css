@@ -1,42 +1,683 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
-  to {
-    transform: rotate(360deg);
+  
+  html, body {
+    height: 100%;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #0000008e; /* Dark background for contrast */
+    display: flex;
+    flex-direction: column; /* Stacks elements vertically */ 
+    overflow-x: hidden; /* Prevent horizontal overflow */
   }
+  /*****************NAVBAR**************/
+
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Use width: 100% instead of 100vw */
+    height: 15vh;
+    padding: 15px 5%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(255, 251, 251, 0); /* Soft white glass effect */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1000;
+  }
+  
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    margin-right: 20px;
+    transition: 0.3s;
+  }
+  
+  .nav-links a:hover {
+    color: #ddd;
+  }
+  
+  .nav-search input {
+    width: 200px;
+    padding: 8px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background: transparent;
+    color: white;
+    border-bottom: 2px solid white;
+    transition: 0.3s;
+  }
+  
+  .nav-search input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  .nav-search input:focus {
+    border-bottom: 2px solid #ddd;
+  }
+  
+  .nav-logo img {
+    height: 40px;
+  }
+  /****************HOMEPAGE MAIN********************/
+  main {
+    flex: 1; /* This makes the main content area take up available space */
+    width: 100vw;
+    padding-top: 0; /* Pushed down by navbar height */
+  }
+
+  .info-container h3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    text-shadow: 2px 5px 4px rgba(92, 91, 91, 0.697); 
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  .info-container h4 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.2rem;
+    text-shadow: 2px 5px 4px rgba(92, 91, 91, 0.697); 
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  
+  .info-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .home-img {
+    width: 100vw;  
+    height: 100vh; 
+  }
+  
+  .home-img img {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+  }
+
+  .categ-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px; 
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .image {
+    overflow: hidden; /* Prevents the image from overflowing its container */
+    position: relative;
+    width: 100%;
+    height: 200px;
+  }
+  
+  .categ-container .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    transition: transform 0.3s ease-in-out; /* Smooth transition for zoom effect */
+  }
+  
+  .image:hover img {
+    transform: scale(1.1); /* Zoom-in effect on hover */
+  }
+  
+/**************DETAILS PAGE****************/
+.details-container {
+    display: flex;
+    flex-direction: column; /* Stack the elements vertically by default */
+    gap: 20px;
 }
 
-.card {
-  padding: 2em;
+.img-detail-container {
+    width: 100%;
+    height: 100vh; 
+    position: relative;
+    overflow: hidden; 
 }
 
-.read-the-docs {
-  color: #888;
+.img-detail-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    transition: transform 0.7s ease-in-out;
 }
+
+.img-detail-container img:hover {
+    transform: scale(1.07); /* Zoom effect on hover */
+}
+
+.img-detail-container h3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.description-container {
+    padding: 30px;
+    background-color: #fff;
+    width: 100%;
+    margin: 0 auto; 
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-sizing: border-box;
+}
+
+.description-container h2 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.description-container p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #333;
+}
+
+ul li strong {
+    color: #000;
+    font-weight: 600;
+}
+
+.one-bycicle-img img {
+    width: 100%;
+    max-width: 1000px;
+}
+
+/* Container for the buttons (to place them in a row) */
+.button-container {
+    display: flex;
+    justify-content: center; 
+    gap: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: #333;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease; 
+    margin-top: 20px;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background-color: #333; 
+    color: white; 
+    transform: scale(0.95); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+button:focus {
+    outline: none; 
+}
+
+.detailed-container {
+    display: flex;
+    flex-direction: row; /* Layout items side by side */
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #f8f8f8;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100vw; /* Make the card wider */
+}
+
+.detailed-container .img-detail-container {
+    width: 50%; /* Image takes 50% of the container width */
+    height: 100%; /* Full height */
+}
+
+.detailed-container .description-container {
+    width: 50%; /* Content takes the other 50% */
+    padding: 30px;
+}
+
+@media (max-width: 768px) {
+    /* Stack items vertically on smaller screens */
+    .detailed-container {
+        flex-direction: column;
+        padding: 10px; 
+    }
+
+    .detailed-container .img-detail-container {
+        width: 100%;
+        height: 300px; /* Set a smaller height for the image */
+    }
+
+    .detailed-container .description-container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .description-container h2 {
+        font-size: 24px; /* Adjust title size for small screens */
+    }
+
+    .description-container p {
+        font-size: 16px; /* Adjust paragraph size */
+    }
+
+    ul li {
+        font-size: 16px; /* Adjust list item size */
+    }
+
+    .button-container {
+        flex-direction: column; /* Stack buttons vertically on small screens */
+    }
+
+    button {
+        width: 100%; /* Make buttons full width */
+        padding: 12px;
+    }
+}
+
+/***************CARD CONTAINER*****************/
+/* The card container */
+.bicycle-card {
+    display: flex;
+    flex-direction: row; /* Layout items side by side */
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #f8f8f8;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100vw; 
+}
+
+.bicycle-card .img-container {
+    width: 50%;
+    max-height: 350px;
+    overflow: hidden;
+    margin-right: 20px;
+    border-radius: 5px;
+    position: relative; /* Make it relative for the image hover effect */
+}
+
+.bicycle-card .img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    transition: transform 0.8s ease;
+}
+
+.bicycle-card .img-container:hover .main-img {
+    content: url('second_image.jpg'); /* *********Changes the image on hover **************/ 
+}
+
+.bicycle-card .img-container img:hover {
+    transform: scale(1.03); /* Zoom-in effect on hover */
+}
+
+.bicycle-card .card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: justify;
+    width: 40%; 
+}
+
+.bicycle-card .card-info h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.bicycle-card .card-info ul {
+    list-style-type: none;
+    margin-bottom: 20px;
+}
+
+.bicycle-card .card-info li {
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+
+/******************ABOUT US*********************/
+/* Resetting some basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and page background */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* About Us Container */
+.about-us-container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 50px 0;
+    max-width: 1200px;
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.about-header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.about-header p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-top: 10px;
+}
+
+/* Team Section */
+.team-section {
+    margin-bottom: 80px;
+}
+
+.team-section h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+.team-members {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    width: 250px;
+}
+
+.team-member img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.team-member h3 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-top: 15px;
+}
+
+.team-member p {
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin-top: 10px;
+}
+
+.team-member:hover {
+    transform: translateY(-10px);
+}
+
+/* Mission Section */
+.mission-section {
+    background-color: #ecf0f1;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.mission-section h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.mission-section p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+
+/* Contact Us Section */
+.contact-us-section {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.contact-us-section h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.contact-us-section p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-bottom: 20px;
+}
+
+.contact-us-section button {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-us-section button:hover {
+    background-color: #2980b9;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .about-us-container {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .team-members {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .team-member {
+        width: 80%;
+        margin-bottom: 30px;
+    }
+
+    .mission-section {
+        padding: 30px;
+    }
+
+    .contact-us-section {
+        padding: 20px;
+    }
+}
+ 
+
+
+/***********************CREATE PAGE*****************************/
+  
+  /* Form container with semi-transparent background */
+  .announcement-form-container {
+    width: 80%;
+    max-width: 900px;
+    margin: 150px auto 50px;
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.8); /* White with 80% opacity for transparency */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(10px); /* Optional: Adds a blur effect behind the form */
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 30px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  label {
+    font-size: 1.1rem;
+    color: #333;
+  }
+  
+  input, select, textarea {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f4f4f4;
+    transition: border-color 0.3s ease;
+  }
+  
+  input[type="file"] {
+    padding: 5px;
+  }
+  
+  input:focus, select:focus, textarea:focus {
+    border-color: #3498db;
+    outline: none;
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: #333;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease; 
+    margin-top: 20px;
+    display: inline-block;
+    text-transform: uppercase;
+  }
+  
+  button:hover {
+    background-color: #333; 
+    color: white; 
+    transform: scale(0.95); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  }
+  
+  button:focus {
+    outline: none; 
+  }
+  
+  @media (max-width: 768px) {
+    .announcement-form-container {
+      width: 95%;
+      padding: 20px;
+    }
+  
+    h1 {
+      font-size: 2rem;
+    }
+  
+    .form-group label {
+      font-size: 1rem;
+    }
+  
+    input, select, textarea {
+      font-size: 0.9rem;
+    }
+  
+    button {
+      padding: 10px 25px;
+      font-size: 1rem;
+    }
+  }
+/**************FOOTER****************/
+  footer {
+    height: 10vh;
+    width: 100vw;
+    padding: 20px 0;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    margin-top: auto; 
+  }
