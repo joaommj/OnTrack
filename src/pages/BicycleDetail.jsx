@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import homeImg from "../assets/bikehome.png";
 
 const BicycleDetail = () => {
+  const [bicycle, setBicycles] = useState([]);
+  const {bicycleCategory} = useParams();
+
   return (
     <>
       <div className='img-detail-container'>
