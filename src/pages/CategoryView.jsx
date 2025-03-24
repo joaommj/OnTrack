@@ -2,7 +2,7 @@ import React from 'react'
 import mountain from "../assets/mountain1.jpg";
 import road1 from "../assets/road1.png";
 
-const Mountain = () => {
+const CategoryView = () => {
   return (
     <> 
     <div className='img-detail-container'>
@@ -30,4 +30,4 @@ const Mountain = () => {
   )
 }
 
-export default Mountain
+export default CategoryView

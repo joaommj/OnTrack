@@ -7,7 +7,7 @@ import CreateBike from './pages/CreateBike'
 import BicycleDetail from './pages/BicycleDetail'
 import NotFoundPage from './pages/NotFoundPage'
 import AboutPage from './pages/AboutPage'
-import Mountain from './pages/Mountain'
+import CategoryView from './pages/CategoryView'
 function App() {
   return (
     <>
@@ -17,7 +17,7 @@ function App() {
         <Route path="/details/:bicycleId" element={<BicycleDetail />} />
         <Route path="/create" element={<CreateBike />} />
         <Route path="/about" element={<AboutPage/>} />
-        <Route path="/mountain" element={<Mountain/>} />
+        <Route path="/category" element={<CategoryView/>} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
