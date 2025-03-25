@@ -79,6 +79,20 @@ const EditPage = ({ bicycleState, setBicycleState }) => {
     console.log("Bicycle updated:", updatedBicycle);
     nav("/");
   }
+
+    async function handleUpdateBicycle (event) {
+      event.preventDefault();
+      try{
+        const res = await axios.post (`http://localhost:5005/bicycles/${bicycleState.id}`);
+        console.log("Posted!");
+             
+             nav("/");
+      }
+      catch (error){
+        console.log(error);
+      }
+    }
+    window.scrollTo(0, 0); 
     return (
       <div className="edit-page-container"> {/* Add this wrapper */}
         <div className="form-container">
@@ -89,57 +103,57 @@ const EditPage = ({ bicycleState, setBicycleState }) => {
     
             <div className="input-group">
               <label>Model:</label>
-              <input type="text" value={model} onChange={(event) => setModel(event.target.value)} required />
+              <input type="text" value={bicycleState.model} onChange={(event) => setModel(event.target.value)} required />
             </div>
     
             <div className="input-group">
               <label>Category:</label>
-              <input type="text" value={category} onChange={(event) => setCategory(event.target.value)} required />
+              <input type="text" value={bicycleState.category} onChange={(event) => setCategory(event.target.value)} required />
             </div>
     
             <div className="input-group">
               <label>Color:</label>
-              <input type="text" value={color} onChange={(event) => setColor(event.target.value)} required />
+              <input type="text" value={bicycleState.color} onChange={(event) => setColor(event.target.value)} required />
             </div>
     
             <div className="input-group">
               <label>Size:</label>
-              <input type="text" value={size} onChange={(event) => setSize(event.target.value)} required />
+              <input type="text" value={bicycleState.size} onChange={(event) => setSize(event.target.value)} required />
             </div>
     
             <div className="input-group">
               <label>Weight:</label>
-              <input type="text" value={weight} onChange={(event) => setWeight(event.target.value)} required />
+              <input type="text" value={bicycleState.weight} onChange={(event) => setWeight(event.target.value)} required />
             </div>
     
             <div className="input-group">
               <label>Material:</label>
-              <input type="text" value={material} onChange={(event) => setMaterial(event.target.value)} required />
+              <input type="text" value={bicycleState.material} onChange={(event) => setMaterial(event.target.value)} required />
             </div>
     
             <div className="input-group">
               <label>Price:</label>
-              <input type="text" value={price} onChange={(event) => setPrice(event.target.value)} required />
+              <input type="text" value={bicycleState.price} onChange={(event) => setPrice(event.target.value)} required />
             </div>
     
             <div className="input-group">
               <label>Picture URL:</label>
-              <input type="text" value={picture_url} onChange={(event) => setPicture(event.target.value)} />
+              <input type="text" value={bicycleState.picture_url} onChange={(event) => setPicture(event.target.value)} />
             </div>
     
             <div className="input-group">
               <label>Detailed Picture URL:</label>
-              <input type="text" value={picture_detailed_url} onChange={(event) => setPictureDetailedUrl(event.target.value)} />
+              <input type="text" value={bicycleState.picture_detailed_url} onChange={(event) => setPictureDetailedUrl(event.target.value)} />
             </div>
     
             <div className="input-group">
               <label>General Description:</label>
-              <textarea value={general_description} onChange={(event) => setGeneralDescription(event.target.value)} />
+              <textarea value={bicycleState.general_description} onChange={(event) => setGeneralDescription(event.target.value)} />
             </div>
     
             <div className="input-group">
               <label>Extras:</label>
-              <textarea value={extras} onChange={(event) => setExtras(event.target.value)} />
+              <textarea value={bicycleState.extras} onChange={(event) => setExtras(event.target.value)} />
             </div>
     
             <button className="submit-btn">Submit Update</button>
