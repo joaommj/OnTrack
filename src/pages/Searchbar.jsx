@@ -1,12 +1,11 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function SearchBar() {
+  const [bicycle, setBicycle] = useState([]);
   const [query, setQuery] = useState("");
-  const handleChange = (event) => {
-    setQuery(event.target.value);
-  };
   useEffect(() => {
-    async function getAllBicle() {
+    async function getAllBicycle() {
       try {
         const res = await fetch("http://localhost:5005/bicycles");
         const parsed = await res.json();
@@ -16,21 +15,38 @@ function SearchBar() {
         console.log(error);
       }
     }
-    const handleSearch = (event) => {
-      event.preventDefault();
-      console.log("Search for:", query);
-    };
-  });
+    getAllBicycle();
+  }, []);
   return (
-    <form onSubmit={handleSearch}>
-      <input
-        type="text"
-        value={query}
-        onChange={handleChange}
-        placeholder="Search..."
-      />
-      <button type="submit"></button>
-    </form>
+    <>
+      <Search query={query} setQuery={setQuery} />
+
+      <div className="search-container">
+        {bicycle &&
+          bicycle
+            .filter((oneBicycle) =>
+              oneBicycle.model.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+            .map((bicycle) => {
+              return (
+                <div key={bicycle.id}>
+                  <Link to={`/category/${bicycle}`}>
+                    <div className="search-card">
+                      <img
+                        src={bicycle.picture_url}
+                        alt={"image of" + bicycle.model}
+                      />
+                      <h5>{bicycle.model}</h5>
+                      <h6>
+                        <em>{bicycle.category}</em>
+                      </h6>
+                    </div>
+                  </Link>
+                </div>
+              );
+            })}
+      </div>
+    </>
   );
 }
 
