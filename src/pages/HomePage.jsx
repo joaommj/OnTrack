@@ -1,5 +1,5 @@
 import React from 'react'
-import homeImg from "../assets/bikehome.png";
+import homeImg from "../assets/bikehome1.png";
 import mountain from "../assets/mountain1.jpg";
 import road from "../assets/road.jpg";
 import gravel from "../assets/gravel1.jpg";
@@ -14,7 +14,7 @@ const HomePage = () => {
         <div className='info-container'>
             <section className="home-img">
             <Link><img src={homeImg} alt="home-image" /> 
-                <h3>GOOD PRESENTATION/WELCOMING PHRASE!</h3>
+                <h3>RIDE FASTER, GO FURTHER, STAY AHEAD!</h3>
                 </Link>
             </section>  
             <section className='categ-container'>
