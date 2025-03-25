@@ -9,7 +9,7 @@
   }
   
   body {
-    font-family: Arial, sans-serif;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Courier, monospace, sans-serif;
     background-color: #0000008e; /* Dark background for contrast */
     display: flex;
     flex-direction: column; /* Stacks elements vertically */ 
@@ -22,31 +22,59 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%; /* Use width: 100% instead of 100vw */
+    width: 100%;
     height: 15vh;
     padding: 15px 5%;
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(255, 251, 251, 0); /* Soft white glass effect */
+    background: rgba(255, 251, 251, 0);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     z-index: 1000;
-  }
-  
-  .nav-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    margin-right: 20px;
-    transition: 0.3s;
-  }
-  
-  .nav-links a:hover {
-    color: #ddd;
-  }
-  
-  .nav-search input {
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Spacing between items */
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 500;
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.nav-links a:hover {
+  color: rgb(37, 37, 37);
+  text-shadow: 0px 8px 9px white;
+  transform: scale(1.05);
+}
+
+/* Ensure the image link and text links are visually equal */
+.nav-links a img {
+  width: 50px; 
+  height: 50px;
+  object-fit: contain;
+}
+
+/* ✅ Hover Effect */
+.nav-links a img:hover {
+    transform: scale(1.1);
+  box-shadow: 0px 0px 9px rgba(255, 255, 255, 0.382);
+  border-radius: 8px;
+
+}
+
+/* ✅ Search Input */
+.nav-search input {
     width: 200px;
     padding: 8px;
     border: none;
@@ -56,19 +84,48 @@
     color: white;
     border-bottom: 2px solid white;
     transition: 0.3s;
-  }
-  
-  .nav-search input::placeholder {
+}
+
+/* ✅ Adjust Placeholder Color */
+.nav-search input::placeholder {
     color: rgba(255, 255, 255, 0.6);
-  }
-  
-  .nav-search input:focus {
+}
+
+.nav-search input:focus {
     border-bottom: 2px solid #ddd;
-  }
-  
-  .nav-logo img {
+}
+
+/* ✅ Logo */
+.nav-logo img {
     height: 40px;
-  }
+}
+
+/* 📱 **Responsive Adjustments** */
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 15px;
+    }
+
+    .nav-links a img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .nav-search input {
+        width: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-links a img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .nav-search input {
+        width: 120px;
+    }
+}
   /****************HOMEPAGE MAIN********************/
   main {
     flex: 1; /* This makes the main content area take up available space */
@@ -84,7 +141,7 @@
     color: white;
     font-size: 2rem;
     font-weight: 700;
-    text-shadow: 2px 5px 4px rgba(92, 91, 91, 0.697); 
+    text-shadow: 2px 5px 4px rgb(0, 0, 0); 
     text-align: center;
     letter-spacing: 1px;
   }
@@ -145,16 +202,11 @@
     transform: scale(1.1); /* Zoom-in effect on hover */
   }
   
-/**************DETAILS PAGE****************/
-.details-container {
-    display: flex;
-    flex-direction: column; /* Stack the elements vertically by default */
-    gap: 20px;
-}
+/**************CATEGORY PAGE****************/
 
 .img-detail-container {
     width: 100%;
-    height: 100vh; 
+    height: 90vh; 
     position: relative;
     overflow: hidden; 
 }
@@ -171,16 +223,18 @@
 }
 
 .img-detail-container h3 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 2rem;
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
-    text-align: center;
-    letter-spacing: 1px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+  text-align: center;
+  letter-spacing: 1px;
+  pointer-events: none; /* Prevents text from being covered */
+  z-index: 2; /* Ensures it stays above */
 }
 
 .description-container {
@@ -226,7 +280,7 @@ ul li strong {
     font-weight: 600;
 }
 
-.one-bycicle-img img {
+.one-bicycle-img img {
     width: 100%;
     max-width: 1000px;
 }
@@ -253,7 +307,7 @@ button {
 }
 
 button:hover {
-    background-color: #333; 
+    background-color: #2e2d2d65; 
     color: white; 
     transform: scale(0.95); 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
@@ -263,25 +317,43 @@ button:focus {
     outline: none; 
 }
 
+button img{
+  width: 30px;
+  height: 30px;
+}
+
+/**************DETAILS PAGE****************/
 .detailed-container {
-    display: flex;
-    flex-direction: row; /* Layout items side by side */
-    justify-content: flex-start;
-    align-items: center;
-    background-color: #f8f8f8;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100vw; /* Make the card wider */
+  display: flex;
+  flex-direction: row; /* Layout items side by side */
+  justify-content: flex-start;
+  align-items: stretch; /* Ensures both children stretch equally */
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100vw; /* Make the card wider */
+  height: auto;
 }
 
 .detailed-container .img-detail-container {
-    width: 50%; /* Image takes 50% of the container width */
-    height: 100%; /* Full height */
+  width: 50%; /* Image takes 50% of the container width */
+  display: flex; /* Allows the image to fully stretch */
+  align-items: center; /* Centers image */
+  justify-content: center;
+}
+
+.detailed-container .img-detail-container img {
+  width: 100%; /* Make image take full width */
+  height: 100%; /* Make image stretch to match text container */
+  object-fit: cover; /* Ensures the image covers its area */
 }
 
 .detailed-container .description-container {
-    width: 50%; /* Content takes the other 50% */
-    padding: 30px;
+  width: 80%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers text vertically */
+  text-align: justify;
 }
 
 @media (max-width: 768px) {
@@ -352,10 +424,6 @@ button:focus {
     transition: transform 0.8s ease;
 }
 
-.bicycle-card .img-container:hover .main-img {
-    content: url('second_image.jpg'); /* *********Changes the image on hover **************/ 
-}
-
 .bicycle-card .img-container img:hover {
     transform: scale(1.03); /* Zoom-in effect on hover */
 }
@@ -383,6 +451,7 @@ button:focus {
 .bicycle-card .card-info li {
     margin-bottom: 8px;
     font-size: 18px;
+    font-weight: bold;
 }
 
 
@@ -396,7 +465,6 @@ button:focus {
 
 /* Body and page background */
 body {
-    font-family: 'Arial', sans-serif;
     background-color: #f9f9f9;
     color: #333;
 }
@@ -577,6 +645,19 @@ body {
     backdrop-filter: blur(10px); /* Optional: Adds a blur effect behind the form */
   }
   
+  .create-bike-container {
+    background-image: url("./assets/Bicycles/bike13_pub.png"); /* Change this to your image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 100vh; /* Full height of the viewport */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0;
+}
+
   h1 {
     text-align: center;
     font-size: 2.5rem;
@@ -636,17 +717,7 @@ body {
     display: inline-block;
     text-transform: uppercase;
   }
-  
-  button:hover {
-    background-color: #333; 
-    color: white; 
-    transform: scale(0.95); 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-  }
-  
-  button:focus {
-    outline: none; 
-  }
+
   
   @media (max-width: 768px) {
     .announcement-form-container {
@@ -671,13 +742,162 @@ body {
       font-size: 1rem;
     }
   }
-/**************FOOTER****************/
-  footer {
-    height: 10vh;
-    width: 100vw;
-    padding: 20px 0;
-    background-color: #333;
-    color: white;
-    text-align: center;
-    margin-top: auto; 
+
+/**************EDIT PAGE****************/
+
+.form-container {
+  width: 80%;
+  max-width: 900px;
+  margin: 150px auto 50px;
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.8); /* White with transparency */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  backdrop-filter: blur(10px); /* Adds a soft blur effect */
+}
+
+.edit-page-container {
+  background-image: url("./assets/Bicycles/bike11_front.png"); /* Change to your image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 100vh; /* Full height of the screen */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 30px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+label {
+  font-size: 1.1rem;
+  color: #333;
+  font-weight: bold;
+}
+
+input, select, textarea {
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease-in-out;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.submit-btn {
+  padding: 12px 20px;
+  background-color: #3498db;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.submit-btn:hover {
+  background-color: #2980b9;
+  transform: scale(0.98);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.submit-btn:focus {
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+      width: 95%;
+      padding: 20px;
   }
+
+  h2 {
+      font-size: 1.8rem;
+  }
+
+  label {
+      font-size: 1rem;
+  }
+
+  input, select, textarea {
+      font-size: 0.9rem;
+  }
+
+  .submit-btn {
+      font-size: 1rem;
+  }
+}
+
+/**************FOOTER****************/
+footer {
+  height: auto; /* ✅ Allows flexibility for different screen sizes */
+  width: 100vw;
+  padding: 20px 0;
+  background-color: #333333ca;
+  color: white;
+  text-align: center;
+  display: flex; /* ✅ Flexbox ensures proper alignment */
+  flex-direction: column; /* ✅ Stack text & image vertically */
+  align-items: center; /* ✅ Center horizontally */
+  justify-content: center; /* ✅ Center vertically */
+  margin-top: auto;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.479); /* ✅ Top shadow */
+}
+
+footer img {
+  height: 80px;
+  width: auto;
+  max-height: 100%; /* ✅ Prevent overflow */
+  max-width: 90%; /* ✅ Ensures responsiveness */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  footer {
+      padding: 15px 0; /* ✅ Reduce padding on smaller screens */
+  }
+  
+  footer img {
+      height: 60px; /* ✅ Adjust image size for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+      padding: 10px 0; /* ✅ Further reduce padding for mobile */
+  }
+  
+  footer img {
+      height: 50px; /* ✅ Smaller image for better fit */
+  }
+}
