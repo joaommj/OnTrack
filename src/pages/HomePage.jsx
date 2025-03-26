@@ -55,7 +55,7 @@ const HomePage = () => {
           <div className="category-info" key={oneCategory.id}>
             <Link to={`/category/${oneCategory.name}`}>
               <h4>{oneCategory.name}</h4>
-              <button onCl  ick={(event) => handleDelete(event, oneCategory.id)}>
+              <button onClick={(event) => handleDelete(event, oneCategory.id)}>
                 <img src={deletebtn} alt="delete button" />
               </button>
               <img src={oneCategory.category_url} alt="Category" />

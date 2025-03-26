@@ -24,7 +24,6 @@ function App() {
         <Route path="/category/:bicycleCategory" element={<CategoryView/>} />
         <Route path="/createcategory" element={<CreateCategory />} />
         <Route path="*" element={<NotFoundPage />} />
-
       </Routes>
       <Footer />
     </>

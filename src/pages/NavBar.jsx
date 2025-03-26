@@ -3,7 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import logo from "../assets/logo.png";
 import { FiMenu, FiX } from "react-icons/fi"; // Import icons
+import { FaMapSigns } from 'react-icons/fa';
+import axios from 'axios';
 const NavBar = () => {
+  const [category, setCategories] = useState([]);
   const [bicycle, setBicycle] = useState([]); // Store bicycle data
   const [query, setQuery] = useState(""); // Search query
   const [sidebarOpen, setSidebarOpen] = useState(false); // State for sidebar toggle
@@ -21,7 +24,14 @@ const NavBar = () => {
     }
     getAllBicycle();
   }, []);
-
+  useEffect(() => {
+    axios.get("http://localhost:5005/categories") 
+    .then((response) =>{
+      console.log(response.data);
+       setCategories(response.data);
+    })
+    .catch ((err) => console.log(err));
+  }, []);
   return (
     <>
     <nav className="navbar">
@@ -54,12 +64,15 @@ const NavBar = () => {
         <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
           <h3>Categories</h3>
           <ul>
-            <li><Link to="/category/Road">Road Bicycles</Link></li>
-            <li><Link to="/category/Mountain">Mountain Bicycles</Link></li>
-            <li><Link to="/category/Gravel">Gravel Bicycles</Link></li>
-            <li><Link to="/category/Electric">Electric Bicycles</Link></li>
-            <li><Link to="/category/Child">Child Bicycles</Link></li>
-            <li><Link to="/category/Touring">Touring Bicycles</Link></li>
+            {category.map((oneCategory)=>{
+              return(
+            <li key={oneCategory.id}>
+                <Link to={`/category/${oneCategory.name}`}>
+                {oneCategory.name} Bicycles
+                </Link>
+            </li>
+              )
+            })}
           </ul>
         </div>
       )}
