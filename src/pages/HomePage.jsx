@@ -1,63 +1,78 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import homeImg from "../assets/bikehome1.png";
-import mountain from "../assets/mountain1.jpg";
-import road from "../assets/road.jpg";
-import gravel from "../assets/gravel1.jpg";
-import touring from "../assets/touring.jpg";
-import child from "../assets/child.jpg";
-import electric from "../assets/electric.png";
-import { Link } from 'react-router-dom';
+import backtop from "../assets/back-top.png";
+import deletebtn from "../assets/delete.png";
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const HomePage = () => {
+  const navigate = useNavigate();
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:5005/categories")
+      .then((res) => {
+        console.log(res.data);
+        setCategories(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const handleDelete = async (event, id) => {
+    event.preventDefault();
+
+    if (!id) {
+      console.error("No ID provided for deletion.");
+      return;
+    }
+
+    try {
+      await axios.delete(`http://localhost:5005/categories/${id}`);
+
+      // Remove the deleted item from the state without reloading
+      setCategories((prevCategories) =>
+        prevCategories.filter((category) => category.id !== id)
+      );
+      
+      // Optionally, navigate after deletion if needed, or just let the UI update
+      // navigate("/"); // You can leave this or remove if you want to stay on the same page
+    } catch (error) {
+      console.error("Error deleting category:", error);
+    }
+  };
+
   return (
     <main>
-        <div className='info-container'>
-            <section className="home-img">
-            <Link><img src={homeImg} alt="home-image" /> 
-                <h3>RIDE FASTER, GO FURTHER, STAY AHEAD!</h3>
-                </Link>
-            </section>  
-            <section className='categ-container'>
-                <div className="image">
-                <Link to ="/category/Mountain"> 
-                    <img src={mountain} alt="home-image" /> 
-                    <h4>MOUNTAIN</h4>
-                </Link>
-                </div>
-                <div className="image">
-                <Link to ="/category/Road">
-                    <img src={road} alt="home-image" /> 
-                    <h4>ROAD</h4>
-                </Link>
-                </div>
-                <div className="image">
-                <Link to ="/category/Gravel">
-                    <img src={gravel} alt="home-image" /> 
-                    <h4>GRAVEL</h4>
-                 </Link>
-                </div>
-                <div className="image">
-                <Link to ="/category/Touring">
-                    <img src={touring} alt="home-image" />
-                    <h4>TOURING</h4> 
-                </Link>
-                </div>
-                <div className="image">
-                <Link to ="/category/Child"> 
-                    <img src={child} alt="home-image" /> 
-                    <h4>CHILD</h4>
-                </Link>
-                </div>
-                <div className="image">
-                <Link to ="/category/Electric">
-                    <img src={electric} alt="home-image" /> 
-                    <h4>ELECTRIC</h4>
-                </Link>
-                </div>
-            </section>
-        </div>
-    </main>
-  )
-}
+      {/* Home Image Section */}
+      <section className="home-img">
+        <img src={homeImg} alt="home-image" />
+        <h3>RIDE FASTER, GO FURTHER, STAY AHEAD!</h3>
+      </section>
 
-export default HomePage
+      {/* Category Grid */}
+      <section className="categ-container">
+        {categories.map((oneCategory) => (
+          <div className="category-info" key={oneCategory.id}>
+            <Link to={`/category/${oneCategory.name}`}>
+              <h4>{oneCategory.name}</h4>
+              <button onCl  ick={(event) => handleDelete(event, oneCategory.id)}>
+                <img src={deletebtn} alt="delete button" />
+              </button>
+              <img src={oneCategory.category_url} alt="Category" />
+            </Link>
+          </div>
+        ))}
+      </section>
+
+      {/* Back to Top Button */}
+      <button
+        className="back-to-top-btn"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      >
+        <img src={backtop} alt="Back to top button" />
+      </button>
+    </main>
+  );
+};
+
+export default HomePage;
