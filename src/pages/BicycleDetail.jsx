@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import deletebtn from "../assets/delete.png";
 import editbtn from "../assets/edit-icon.png";
+import backtop from "../assets/back-top.png";
 import axios from 'axios';
 
 const BicycleDetail = () => {
@@ -19,25 +20,29 @@ const BicycleDetail = () => {
             return <p>Loading bicycle details...</p>; // Handle loading state
       }
       const navigate = useNavigate();
-      async function handleDelete (event) {
+      const handleDelete = async (event, id) => {
         event.preventDefault();
         try{
-          const res = await axios.delete (`http://localhost:5005/bicycles/${bicycles.id}`);
+          await axios.delete (`http://localhost:5005/bicycles/${bicycleId}`);
           console.log("Deleted!");
-               
-               nav("/");
+          
+               navigate(`/category/${bicycles.category}`);
         }
         catch (error){
           console.log(error);
         }
       }
+      const handleBack = () => {
+        navigate(-1); // Go back to the previous page
+        window.scrollTo(0, 0); 
+      };
 
-window.scrollTo(0, 0); 
   return (
     <>
+      
           <div className='img-detail-container'>
             <img src={bicycles.picture_detailed_url} alt="home-image" />
-            <h3>{bicycles.model}</h3> {/* Display the actual bike model */}
+            <h3>{bicycles.model}</h3> 
           </div>
           <section className='detailed-container'>
             <div className='one-bicycle-img'>
@@ -56,17 +61,24 @@ window.scrollTo(0, 0);
                 <li><strong>Price:</strong> {bicycles.price}€</li>
               </ul>
               <div className='button-container'>
+                <button className="back-btn" onClick={handleBack}>⬅ Go Back</button>
                 <Link to={`/edit/${bicycles.id}`}>
-                  <button > 
+                  <button className="back-btn"> 
                     <img src={editbtn} alt ="edit button" />
                   </button>
                   </Link>
-                <button onClick={handleDelete}>          
+                <button className="back-btn" onClick={handleDelete}>          
                    <img src={deletebtn} alt ="delete button" />
                 </button>
               </div>
             </div>
           </section>
+          <button 
+            className="back-to-top-btn" 
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+          <img src={backtop} alt ="back to top button" />
+          </button>
     </>
 );
 }

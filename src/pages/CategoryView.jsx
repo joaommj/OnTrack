@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import mountain from "../assets/mountain1.jpg";
 import road from "../assets/road.jpg";
-import gravel from "../assets/gravel1.jpg";
+import gravel from "../assets/gravel1.png";
 import touring from "../assets/touring.jpg";
 import child from "../assets/child.jpg";
 import deletebtn from "../assets/delete.png";
 import infobtn from "../assets/info-icon.png";
 import electric from "../assets/electric.png";
+import backtop from "../assets/back-top.png";
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
@@ -22,17 +23,30 @@ const CategoryView = () => {
     .catch ((err) => console.log(err));
          }, []);
         const navigate = useNavigate();
-        async function handleDelete (event) {
-         event.preventDefault();
-            try{
-            const res = await axios.delete (`http://localhost:5005/bicycles/${bicycles.id}`);
-            nav("/");
-         }
-        catch (error){
-            console.log(error);
+        const handleDelete = async (event, id) => {
+            event.preventDefault();
+            if (!id) {
+              console.error("No ID provided for deletion.");
+              return;
             }
-        }
+          
+            try {
+              await axios.delete(`http://localhost:5005/bicycles/${id}`);
+          
+              //Remove deleted item from state
+              setBicycles((prevBicycles) => prevBicycles.filter((bike) => bike.id !== id));
+          
+              // Navigate after deletion (optional)
+              navigate(`/category/${bicycleCategory}`);
+            } catch (error) {
+              console.error("Error deleting bicycle:", error);
+            }
+          };
+          const handleBack = () => {
+            navigate("/"); 
             window.scrollTo(0, 0);
+          };
+          
   return (
     <div> 
     {bicycleCategory === "Road" && <div className='img-detail-container'>
@@ -76,22 +90,29 @@ const CategoryView = () => {
                         <li>Size: {oneBicycle.size}</li>
                     </ul>
                     <div className='card-btn-container'>
+                        <button className="back-btn" onClick={handleBack}>⬅ Go Back</button>
                         <Link to={`/details/${oneBicycle.id}`}>
-                        <button> 
+                        <button className="back-btn"> 
                             <img src={infobtn} alt ="info button" />
                         </button>
                         </Link>
-                        <Link to={""}>
-                        <button onClick={handleDelete}>          
+                        <button className="back-btn" onClick={(event) => handleDelete(event, oneBicycle.id)}>          
                             <img src={deletebtn} alt ="delete button" />
                         </button>
-                        </Link>
                     </div>
                 </div>
             </div>  
         </section>
+        
     );}
+    
      })}
+     <button 
+  className="back-to-top-btn" 
+  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+>
+<img src={backtop} alt ="back to top button" />
+</button>
     </div>
   )
 }

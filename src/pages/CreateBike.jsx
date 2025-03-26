@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import backtop from "../assets/back-top.png";
 
 const CreateBike = () => {
   const [bicycles, setBicycles] = useState({
@@ -19,7 +20,7 @@ const CreateBike = () => {
   const [image, setImage] = useState(null);
   const [image2, setImage2] = useState(null);
 
-  const nav = useNavigate();
+  const navigate = useNavigate();
   function handleCreate(event){
     const key = event.target.name;
     const infoSubmitted = event.target.value;
@@ -68,14 +69,22 @@ async function handleCreateProject (event) {
     console.log("Image 2:",imageUrl2)
 
     //this is where we send the project to the json server
-    const res = await axios.post ("http://localhost:5005/bicycles", {...bicycles, picture_url:imageUrl1, picture_detailed_url:imageUrl2});
+    const res = await axios.post ("http://localhost:5005/bicycles", {
+      ...bicycles, 
+      picture_url:imageUrl1, picture_detailed_url:imageUrl2
+    });
     console.log("Created!", res.data);
-    nav("/");
+    navigate("/");
   }
   catch (error){
     console.log(error);
   }
 }
+const handleBack = () => {
+  navigate(-1); // Go back to the previous page
+  window.scrollTo(0, 0); 
+};
+
     return (
       <div className="create-bike-container"> {/* Wrapper with background */}
         <section className="announcement-form-container" onSubmit={handleCreateProject}>
@@ -90,12 +99,12 @@ async function handleCreateProject (event) {
               <label htmlFor="category">Category</label>
               <select id="category" name="category" value={bicycles.category} onChange={handleCreate} required>
                 <option value="" disabled>Select Category</option>
-                <option value="mountain">Mountain</option>
-                <option value="road">Road</option>
-                <option value="gravel">Gravel</option>
-                <option value="electric">Electric</option>
-                <option value="child">Child</option>
-                <option value="touring">Touring</option>
+                <option value="Mountain">Mountain</option>
+                <option value="Road">Road</option>
+                <option value="Gravel">Gravel</option>
+                <option value="Electric">Electric</option>
+                <option value="Child">Child</option>
+                <option value="Touring">Touring</option>
               </select>
             </div>
     
@@ -113,8 +122,8 @@ async function handleCreateProject (event) {
               <label htmlFor="byke-image">Bike Image</label>
               <input type="file" id="byke-image" name="picture_url" accept="image/*" required onChange={(event)=>{
 
-setImage(event.target.files[0]);
-console.log("évent target for picture:",event.target.files[0])
+            setImage(event.target.files[0]);
+            console.log("event target for picture:",event.target.files[0])
               }}/>
             </div>
     
@@ -139,7 +148,7 @@ console.log("évent target for picture:",event.target.files[0])
     
             <div className="form-group">
               <label htmlFor="price">Price</label>
-              <input type="text" id="price" name="price" required placeholder="00,00€" value={bicycles.price} onChange={handleCreate}/>
+              <input type="text" id="price" name="price" required placeholder="00,00" value={bicycles.price} onChange={handleCreate}/>
             </div>
 
             <div className="form-group">
@@ -151,9 +160,16 @@ console.log("évent target for picture:",event.target.files[0])
               <label htmlFor="extras">Extras</label>
               <textarea id="extras" name="extras" rows="3" required placeholder="Enter some extras of the bike" value={bicycles.extras} onChange={handleCreate}></textarea>
             </div>
-            <button type="submit">Submit Announcement</button>
+            <button className="back-btn" type="submit">Submit Announcement</button>
           </form>
+          <button className="back-btn" onClick={handleBack}>⬅ Go Back</button>
         </section>
+        <button 
+  className="back-to-top-btn" 
+  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+>
+<img src={backtop} alt ="back to top button" />
+</button>
       </div>
     );
 }

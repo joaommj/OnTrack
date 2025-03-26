@@ -10,45 +10,51 @@
   
   body {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Courier, monospace, sans-serif;
-    background-color: #0000008e; /* Dark background for contrast */
+    background-color: #0000008e; 
     display: flex;
     flex-direction: column; /* Stacks elements vertically */ 
     overflow-x: hidden; /* Prevent horizontal overflow */
   }
-  /*****************NAVBAR**************/
-
-  
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 15vh;
-    padding: 15px 5%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba(255, 251, 251, 0);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    z-index: 1000;
+  /*****************NAVBAR!**************/
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 15vh; /* Reduced height for a more compact navbar */
+  padding: 10px 5%; /* Reduced padding for compactness */
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(135, 135, 135, 0);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000;
 }
 
-.nav-links {
+/* Navbar Links */
+.navbar .nav-links {
   display: flex;
   align-items: center;
-  gap: 20px; /* Spacing between items */
+  gap: 15px;
+
 }
+
+/* Sidebar Toggle Button */
+.navbar .sidebar-toggle {
+  margin-right: 10px; /* Space between the button and the links */
+  order: -1; /* Move the button before the links */
+}
+
 
 .nav-links a {
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-weight: 500;
   color: white;
   text-decoration: none;
-  padding: 10px 15px;
+  padding: 5px 10px; 
   transition: background-color 0.3s, transform 0.2s;
 }
 
@@ -58,73 +64,255 @@
   transform: scale(1.05);
 }
 
-/* Ensure the image link and text links are visually equal */
+/* Image in Navbar Links */
 .nav-links a img {
-  width: 50px; 
-  height: 50px;
+  width: 30px; 
+  height: 30px;
   object-fit: contain;
 }
 
-/* ✅ Hover Effect */
+/* Hover effect for images in navbar */
 .nav-links a img:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
   box-shadow: 0px 0px 9px rgba(255, 255, 255, 0.382);
   border-radius: 8px;
-
 }
 
-/* ✅ Search Input */
+/* Ensure the logo stays in the center */
+.navbar .logo {
+  flex-grow: 0; /* Prevent logo from growing */
+  display: flex;
+  justify-content: center; /* Center the logo horizontally */
+  align-items: center; /* Center the logo vertically */
+  height: 100%; /* Ensures the logo container takes the height of the navbar */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%); /* Perfectly centers the logo */
+}
+
+/* Logo Styling */
+.navbar .logo img {
+  max-height: 80%;
+  max-width: 100%; 
+  object-fit: contain; 
+}
+
+/* Search Input */
 .nav-search input {
-    width: 200px;
-    padding: 8px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    background: transparent;
-    color: white;
-    border-bottom: 2px solid white;
-    transition: 0.3s;
+  width: 160px; 
+  padding: 6px; 
+  border: none;
+  outline: none;
+  font-size: 14px; 
+  background: transparent;
+  color: white;
+  border-bottom: 2px solid white;
+  transition: 0.3s;
 }
 
-/* ✅ Adjust Placeholder Color */
+/* Placeholder text color */
 .nav-search input::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
 
+/* Focus state for the search input */
 .nav-search input:focus {
-    border-bottom: 2px solid #ddd;
+  border-bottom: 2px solid #ddd;
 }
 
-/* ✅ Logo */
+/* Logo Styling */
 .nav-logo img {
-    height: 40px;
+  height: 35px; /* Reduced logo size */
 }
 
-/* 📱 **Responsive Adjustments** */
+/* Dropdown Styling */
+.search-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0; /* Aligns to the right side */
+  width: 300px;
+  background: rgba(224, 224, 224, 0.425);
+  max-height: 250px;
+  overflow-y: auto;
+  padding: 8px;
+  border-radius: 8px; 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); 
+}
+
+/* Each Search Result */
+.search-card {
+  display: flex;
+  flex-direction: column; /*Stack Image, Model, and Category */
+  align-items: center;
+  text-align: center;
+  gap: 5px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover Effect for Search Card */
+.search-card:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+/* Image Styling */
+.search-card img {
+  width: 70px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/*Remove Link Styling */
+.search-card a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/*Text Styling */
+.search-card h5,
+.search-card h6 {
+  margin: 0;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: black;
+}
+
+.search-card h6 {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 15vh; /* Adjusted to start just below the navbar */
+  left: -250px; /* Start with the sidebar off-screen */
+  width: 250px; /* The width of the sidebar when expanded */
+  height: calc(100vh - 15vh); /* Make sidebar height fit the rest of the screen */
+  background-color: rgba(0, 0, 0, 0.5); 
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px); /*Support for blur */
+  color: white;
+  transition: left 0.3s ease; /* Smooth transition when opening/closing */
+  padding-top: 20px;
+  z-index: 999; /* Ensure it stays on top of other content */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); /* Optional: shadow for better visibility */
+}
+
+.sidebar.open {
+  left: 0; /* Move sidebar into view when open */
+}
+
+.sidebar h3 {
+  margin-left: 15px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 10px 0;
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar ul li a:hover {
+  background-color: #555;
+}
+
+/* Sidebar Toggle Button */
+.sidebar-toggle {
+  background-color: transparent; /* Remove background color */
+  color: white;
+  border: none;
+  padding: 0; /* Remove padding to make the icon fit tightly */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 24px; /* Icon size */
+}
+
+/* Hover effect for the sidebar toggle */
+.sidebar-toggle:hover {
+  background-color: transparent; /* No background when hovered */
+}
+
+.sidebar-toggle svg {
+  transition: transform 0.2s ease; /* Smooth transition for hover effect */
+}
+
+.sidebar-toggle:hover svg {
+  transform: scale(1.1); /* Slightly scale up the icon on hover */
+}
+
+/* Mobile Styling */
 @media (max-width: 768px) {
-    .nav-links {
-        gap: 15px;
-    }
+  .navbar {
+    height: 10vh; /* Reduce the height of the navbar for mobile */
+    padding: 10px 3%; /* Slightly reduce the padding */
+  }
 
-    .nav-links a img {
-        width: 40px;
-        height: 40px;
-    }
+  .navbar .logo img {
+    max-height: 60%; /* Reduce the logo size on mobile */
+  }
 
-    .nav-search input {
-        width: 150px;
-    }
+  .nav-search input {
+    width: 120px; /* Adjust search input size */
+  }
+
+  .nav-links {
+    gap: 10px; /* Reduce gap between navbar links */
+  }
+
+  .sidebar {
+    width: 200px; /* Adjust sidebar width on mobile */
+  }
+  .search-dropdown {
+    width: 250px;
+  }
+
+  .search-card img {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 @media (max-width: 480px) {
-    .nav-links a img {
-        width: 35px;
-        height: 35px;
-    }
+  .navbar {
+    height: 12vh; /* Adjust navbar height for tablet */
+    padding: 10px 4%; /* Adjust padding for tablet */
+  }
 
-    .nav-search input {
-        width: 120px;
-    }
+  .navbar .logo img {
+    max-height: 70%; /* Reduce the logo size on tablet */
+  }
+
+  .nav-search input {
+    width: 140px; /* Adjust search input size */
+  }
+  
+  .search-dropdown {
+    width: 220px;
+  }
+
+  .search-card img {
+    width: 45px;
+    height: 45px;
+  }
 }
   /****************HOMEPAGE MAIN********************/
   main {
@@ -133,93 +321,222 @@
     padding-top: 0; /* Pushed down by navbar height */
   }
 
-  .info-container h3 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 2rem;
-    font-weight: 700;
-    text-shadow: 2px 5px 4px rgb(0, 0, 0); 
-    text-align: center;
-    letter-spacing: 1px;
-  }
+/* Category Grid Container */
+.categ-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(370px, 3fr)); /* Ensures 3 items per row */
+  gap: 10px;
+  padding:15px 20px;
+  width: 100%;
+  max-width: 100%; 
+  justify-content: center;
+  align-items: center;
+}
 
-  .info-container h4 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 1.2rem;
-    text-shadow: 2px 5px 4px rgba(92, 91, 91, 0.697); 
-    text-align: center;
-    letter-spacing: 1px;
-  }
-  
-  .info-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .home-img {
-    width: 100vw;  
-    height: 100vh; 
-  }
-  
-  .home-img img {
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-  }
+/* Category Image Container */
+.category-info {
+  position: relative;
+  overflow: hidden; /* Hide the parts of the image that are zoomed out of the container */
+  width: 100%;
+  height: 250px;
+  cursor: pointer;
+  border-radius: 0;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-  .categ-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px; 
-    width: 100%;
-    padding: 20px;
-  }
-  
-  .image {
-    overflow: hidden; /* Prevents the image from overflowing its container */
-    position: relative;
-    width: 100%;
-    height: 200px;
-  }
-  
-  .categ-container .image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-    transition: transform 0.3s ease-in-out; /* Smooth transition for zoom effect */
-  }
-  
-  .image:hover img {
-    transform: scale(1.1); /* Zoom-in effect on hover */
-  }
-  
-/**************CATEGORY PAGE****************/
+/* Category Name Overlay */
+.category-info h4 {
+  position: absolute; /* To stay on top of the image */
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  margin: 0; 
+  font-size: 2rem; 
+  font-weight: bold; 
+  color: white; 
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); 
+  z-index: 2; 
+}
+
+
+/* Category Image */
+.category-info img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Button at the bottom-right */
+.category-info button {
+  position: absolute;
+  background-color: #ebe8e865;
+  bottom: 5px; 
+  right: 5px; 
+  border: none;
+  border-radius: 30px; 
+  padding: 10px 15px; 
+  cursor: pointer; 
+  transition: all 0.3s ease; 
+  margin-top: 20px;
+  display: inline-block; 
+  z-index: 2; 
+}
+
+/* Hover effect for the button */
+.category-info button:hover {
+  background-color: #ebe8e865; 
+  color: white; 
+  transform: scale(1.02); 
+  box-shadow: 0 4px 8px rgba(236, 234, 234, 0.2); 
+}
+
+/* Focus effect */
+.category-info button:focus {
+  outline: none; 
+}
+
+/* Style the delete button image */
+.category-info button img {
+  width: 25px; 
+  height: 20px;
+  object-fit: contain;
+}
+
+/* Zoom effect on the image */
+.category-info:hover img {
+  transform: scale(1.1); 
+}
+
+/* Category Name Overlay */
+.category-name {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-shadow: 2px 5px 4px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  letter-spacing: 1px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.home-img {
+  width: 100vw;  
+  height: 100vh; 
+}
+
+.home-img h3 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow: 2px 5px 4px rgb(0, 0, 0); 
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.home-img img {
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
+
+/**************BICYCLEDETAILS PAGE!****************/
+
+.description-container {
+  flex: 1.8; /* Increase text width */
+  padding: 40px 60px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: justify;
+  max-width: 500px; /* Prevent from stretching too much */
+}
+
+/* Fix for the image */
+.one-bicycle-img {
+  flex: 1; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.one-bicycle-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Fix for the overall container */
+.detailed-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch; /* Ensures both image & text stretch evenly */
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100vw;
+  height: auto;
+  gap: 20px; 
+}
+
+/* Fix for smaller screens */
+@media (max-width: 768px) {
+    .detailed-container {
+        flex-direction: column;
+        padding: 10px; 
+        align-items: center;
+    }
+
+    .one-bicycle-img {
+        width: 100%;
+        height: 300px; 
+    }
+
+    .description-container {
+        width: 100%;
+        padding: 20px;
+        max-width: 100%; 
+    }
+
+    .description-container h2 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .description-container p,
+    .description-container ul li {
+        font-size: 16px;
+    }
+}
+
+/*************** CATEGORYVIEW PAGE!*****************/
 
 .img-detail-container {
-    width: 100%;
-    height: 90vh; 
-    position: relative;
-    overflow: hidden; 
+  width: 100%;
+  height: 90vh; 
+  position: relative;
+  overflow: hidden; 
 }
 
 .img-detail-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-    transition: transform 0.7s ease-in-out;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  transition: transform 0.7s ease-in-out;
 }
 
 .img-detail-container img:hover {
-    transform: scale(1.07); /* Zoom effect on hover */
+  transform: scale(1.07); 
 }
 
 .img-detail-container h3 {
@@ -234,172 +551,12 @@
   text-align: center;
   letter-spacing: 1px;
   pointer-events: none; /* Prevents text from being covered */
-  z-index: 2; /* Ensures it stays above */
+  z-index: 2; 
 }
 
-.description-container {
-    padding: 30px;
-    background-color: #fff;
-    width: 100%;
-    margin: 0 auto; 
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    box-sizing: border-box;
-}
-
-.description-container h2 {
-    font-size: 32px;
-    color: #333;
-    margin-bottom: 15px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.description-container p {
-    font-size: 18px;
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-ul li {
-    margin-bottom: 15px;
-    font-size: 18px;
-    color: #333;
-}
-
-ul li strong {
-    color: #000;
-    font-weight: 600;
-}
-
-.one-bicycle-img img {
-    width: 100%;
-    max-width: 1000px;
-}
-
-/* Container for the buttons (to place them in a row) */
-.button-container {
-    display: flex;
-    justify-content: center; 
-    gap: 20px;
-}
-
-button {
-    padding: 10px 20px;
-    background-color: transparent;
-    color: #333;
-    font-size: 16px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease; 
-    margin-top: 20px;
-    display: inline-block;
-    text-transform: uppercase;
-}
-
-button:hover {
-    background-color: #2e2d2d65; 
-    color: white; 
-    transform: scale(0.95); 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-}
-
-button:focus {
-    outline: none; 
-}
-
-button img{
-  width: 30px;
-  height: 30px;
-}
-
-/**************DETAILS PAGE****************/
-.detailed-container {
-  display: flex;
-  flex-direction: row; /* Layout items side by side */
-  justify-content: flex-start;
-  align-items: stretch; /* Ensures both children stretch equally */
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100vw; /* Make the card wider */
-  height: auto;
-}
-
-.detailed-container .img-detail-container {
-  width: 50%; /* Image takes 50% of the container width */
-  display: flex; /* Allows the image to fully stretch */
-  align-items: center; /* Centers image */
-  justify-content: center;
-}
-
-.detailed-container .img-detail-container img {
-  width: 100%; /* Make image take full width */
-  height: 100%; /* Make image stretch to match text container */
-  object-fit: cover; /* Ensures the image covers its area */
-}
-
-.detailed-container .description-container {
-  width: 80%;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Centers text vertically */
-  text-align: justify;
-}
-
-@media (max-width: 768px) {
-    /* Stack items vertically on smaller screens */
-    .detailed-container {
-        flex-direction: column;
-        padding: 10px; 
-    }
-
-    .detailed-container .img-detail-container {
-        width: 100%;
-        height: 300px; /* Set a smaller height for the image */
-    }
-
-    .detailed-container .description-container {
-        width: 100%;
-        padding: 15px;
-    }
-
-    .description-container h2 {
-        font-size: 24px; /* Adjust title size for small screens */
-    }
-
-    .description-container p {
-        font-size: 16px; /* Adjust paragraph size */
-    }
-
-    ul li {
-        font-size: 16px; /* Adjust list item size */
-    }
-
-    .button-container {
-        flex-direction: column; /* Stack buttons vertically on small screens */
-    }
-
-    button {
-        width: 100%; /* Make buttons full width */
-        padding: 12px;
-    }
-}
-
-/***************CARD CONTAINER*****************/
-/* The card container */
 .bicycle-card {
     display: flex;
-    flex-direction: row; /* Layout items side by side */
+    flex-direction: row; 
     justify-content: flex-start;
     align-items: center;
     background-color: #f8f8f8;
@@ -454,184 +611,38 @@ button img{
     font-weight: bold;
 }
 
-
-/******************ABOUT US*********************/
-/* Resetting some basic styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.back-btn {
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #2e2d2d65;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease; 
+  margin-top: 20px;
+  display: inline-block;
+  text-transform: uppercase;
 }
 
-/* Body and page background */
-body {
-    background-color: #f9f9f9;
-    color: #333;
+.back-btn:hover {
+  background-color: #2e2d2d65; 
+  color: white; 
+  transform: scale(0.95); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
 
-/* About Us Container */
-.about-us-container {
-    width: 90%;
-    margin: 0 auto;
-    padding: 50px 0;
-    max-width: 1200px;
+.back-btn:focus {
+  outline: none; 
 }
 
-.about-header {
-    text-align: center;
-    margin-bottom: 50px;
+.back-btn img{
+width: 30px;
+height: 30px;
 }
+/***********************CREATE CATEGORY PAGE*****************************/
 
-.about-header h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    color: #2c3e50;
-}
-
-.about-header p {
-    font-size: 1.2rem;
-    color: #7f8c8d;
-    margin-top: 10px;
-}
-
-/* Team Section */
-.team-section {
-    margin-bottom: 80px;
-}
-
-.team-section h2 {
-    font-size: 2.5rem;
-    font-weight: 600;
-    text-align: center;
-    color: #2c3e50;
-    margin-bottom: 30px;
-}
-
-.team-members {
-    display: flex;
-    justify-content: space-around;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-
-.team-member {
-    background-color: #fff;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    transition: transform 0.3s ease;
-    width: 250px;
-}
-
-.team-member img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.team-member h3 {
-    font-size: 1.5rem;
-    color: #2c3e50;
-    margin-top: 15px;
-}
-
-.team-member p {
-    font-size: 1rem;
-    color: #7f8c8d;
-    margin-top: 10px;
-}
-
-.team-member:hover {
-    transform: translateY(-10px);
-}
-
-/* Mission Section */
-.mission-section {
-    background-color: #ecf0f1;
-    padding: 40px;
-    border-radius: 10px;
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.mission-section h2 {
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 20px;
-}
-
-.mission-section p {
-    font-size: 1.2rem;
-    color: #7f8c8d;
-    line-height: 1.6;
-}
-
-/* Contact Us Section */
-.contact-us-section {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.contact-us-section h2 {
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 20px;
-}
-
-.contact-us-section p {
-    font-size: 1.2rem;
-    color: #7f8c8d;
-    margin-bottom: 20px;
-}
-
-.contact-us-section button {
-    padding: 12px 30px;
-    font-size: 1.1rem;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.contact-us-section button:hover {
-    background-color: #2980b9;
-}
-
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-    .about-us-container {
-        width: 100%;
-        padding: 20px;
-    }
-
-    .team-members {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .team-member {
-        width: 80%;
-        margin-bottom: 30px;
-    }
-
-    .mission-section {
-        padding: 30px;
-    }
-
-    .contact-us-section {
-        padding: 20px;
-    }
-}
- 
-
-
-/***********************CREATE PAGE*****************************/
+/***********************CREATE BIKE PAGE*****************************/
   
   /* Form container with semi-transparent background */
   .announcement-form-container {
@@ -639,19 +650,19 @@ body {
     max-width: 900px;
     margin: 150px auto 50px;
     padding: 40px;
-    background-color: rgba(255, 255, 255, 0.8); /* White with 80% opacity for transparency */
+    background-color: rgba(255, 255, 255, 0.8); 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    backdrop-filter: blur(10px); /* Optional: Adds a blur effect behind the form */
+    backdrop-filter: blur(10px);
   }
   
   .create-bike-container {
-    background-image: url("./assets/Bicycles/bike13_pub.png"); /* Change this to your image path */
+    background-image: url("./assets/Bicycles/bike13_pub.png"); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
-    min-height: 100vh; /* Full height of the viewport */
+    min-height: 100vh; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -704,10 +715,10 @@ body {
     resize: vertical;
   }
   
-  button {
+  .back-btn {
     padding: 10px 20px;
     background-color: transparent;
-    color: #333;
+    color: #2e2d2d65;
     font-size: 16px;
     border: none;
     border-radius: 30px;
@@ -717,7 +728,23 @@ body {
     display: inline-block;
     text-transform: uppercase;
   }
-
+  
+  .back-btn:hover {
+    background-color: #2e2d2d65; 
+    color: white; 
+    transform: scale(0.95); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  }
+  
+  .back-btn:focus {
+    outline: none; 
+  }
+  
+  .back-btn img{
+  width: 30px;
+  height: 30px;
+  }
+  
   
   @media (max-width: 768px) {
     .announcement-form-container {
@@ -750,14 +777,14 @@ body {
   max-width: 900px;
   margin: 150px auto 50px;
   padding: 40px;
-  background-color: rgba(255, 255, 255, 0.8); /* White with transparency */
+  background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  backdrop-filter: blur(10px); /* Adds a soft blur effect */
+  backdrop-filter: blur(10px); 
 }
 
 .edit-page-container {
-  background-image: url("./assets/Bicycles/bike11_front.png"); /* Change to your image path */
+  background-image: url("./assets/Bicycles/bike11_front.png"); 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -814,14 +841,16 @@ textarea {
 }
 
 .submit-btn {
-  padding: 12px 20px;
-  background-color: #3498db;
-  color: white;
-  font-size: 1rem;
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #333;
+  font-size: 16px;
   border: none;
   border-radius: 30px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease; 
+  margin-top: 20px;
+  display: inline-block;
   text-transform: uppercase;
 }
 
@@ -858,12 +887,156 @@ textarea {
   }
 }
 
+/******************ABOUT US*********************/
+
+/* Resetting some basic styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f9f9f9;
+  color: #333;
+}
+/*About Container*/
+.about-container {
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+width: 100%;
+}
+
+.about-container h3 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.7rem;
+  font-weight: 700;
+  text-shadow: 2px 5px 4px rgb(0, 0, 0);
+  text-align: center;
+  letter-spacing: 1px;
+  width: 90%;
+}
+
+.about-sentence{
+  font-size: 2.3rem;
+  }
+
+/* About Image container */
+.about-info {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+}
+
+/* Image styling */
+.about-info img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+}
+
+/* Text section */
+.about-text {
+  background-color: white;
+  margin: 5%;
+  padding: 20px;
+  width: 80%;
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: justify;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+  .about-container h3 {
+    font-size: 1.8rem;
+  }
+  .about-text {
+    width: 90%;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .about-info {
+    height: 70vh;
+  }
+}
+
+/* For mobile screens */
+@media (max-width: 768px) {
+  .about-container h3 {
+    font-size: 1.5rem;
+    top: 45%;
+  }
+  .about-info {
+    height: 50vh;
+  }
+  .about-text {
+    width: 95%;
+    font-size: 1rem;
+    line-height: 1.4;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-container h3 {
+    font-size: 1.2rem;
+    top: 40%;
+  }
+  .about-info {
+    height: 40vh;
+  }
+  .about-text {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+}
+
+/*********BACK BUTTON!**********/
+
+.back-to-top-btn {
+  text-transform: uppercase;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  z-index: 1100; /* Make sure the button stays above the footer */
+}
+
+.back-to-top-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.back-to-top-btn img {
+  width: 50px;
+  height: 50px;
+}
+
 /**************FOOTER****************/
+
 footer {
   height: auto; /* ✅ Allows flexibility for different screen sizes */
   width: 100vw;
   padding: 20px 0;
-  background-color: #333333ca;
+  background: rgba(0, 0, 0, 0.158);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000;
   color: white;
   text-align: center;
   display: flex; /* ✅ Flexbox ensures proper alignment */
@@ -871,7 +1044,8 @@ footer {
   align-items: center; /* ✅ Center horizontally */
   justify-content: center; /* ✅ Center vertically */
   margin-top: auto;
-  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.479); /* ✅ Top shadow */
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.377); /* ✅ Top shadow */
+  position: relative; /* Ensure footer stays at the bottom */
 }
 
 footer img {
@@ -881,7 +1055,6 @@ footer img {
   max-width: 90%; /* ✅ Ensures responsiveness */
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   footer {
       padding: 15px 0; /* ✅ Reduce padding on smaller screens */
@@ -901,3 +1074,4 @@ footer img {
       height: 50px; /* ✅ Smaller image for better fit */
   }
 }
+

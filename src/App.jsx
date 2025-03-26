@@ -9,6 +9,7 @@ import NotFoundPage from './pages/NotFoundPage'
 import AboutPage from './pages/AboutPage'
 import CategoryView from './pages/CategoryView'
 import EditPage from './pages/EditPage'
+import CreateCategory from './pages/CreateCategory'
 
 function App() {
   return (
@@ -21,7 +22,9 @@ function App() {
         <Route path="/about" element={<AboutPage/>} />
         <Route path="/edit/:bicycleId" element={<EditPage/>} />
         <Route path="/category/:bicycleCategory" element={<CategoryView/>} />
+        <Route path="/createcategory" element={<CreateCategory />} />
         <Route path="*" element={<NotFoundPage />} />
+
       </Routes>
       <Footer />
     </>
