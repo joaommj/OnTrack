@@ -24,7 +24,7 @@ const CategoryView = () => {
               setCategories(categoryObject);
           })
       .catch ((err) => console.log(err));
-           }, []);
+           }, [bicycleCategory]);
     useEffect(()=> {
     axios.get(`${API_URL}/bicycles`)
         .then((res) => {
