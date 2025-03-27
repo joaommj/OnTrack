@@ -60,7 +60,7 @@ async function handleCreateProject (event) {
     console.log("Image 1:",imageUrl1)
     console.log("Image 2:",imageUrl2)
 
-    //this is where we send the project to the json server
+    //send the project to the json server
     const res = await axios.post (`${API_URL}/bicycles`, {
       ...bicycles, 
       picture_url:imageUrl1, picture_detailed_url:imageUrl2

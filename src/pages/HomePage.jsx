@@ -52,7 +52,8 @@ const HomePage = () => {
 
       {/* Category Grid */}
       <section className="categ-container">
-        {categories.map((oneCategory) => (
+        {categories && Array.isArray(categories) && categories.map((oneCategory) => {
+          return(
           <div className="category-info" key={oneCategory.id}>
             <Link to={`/category/${oneCategory.name}`}>
               <h4>{oneCategory.name}</h4>
@@ -62,7 +63,8 @@ const HomePage = () => {
               <img src={oneCategory.category_url} alt="Category" />
             </Link>
           </div>
-        ))}
+          )}
+        )}
       </section>
 
       {/* Back to Top Button */}

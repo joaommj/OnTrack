@@ -47,7 +47,7 @@ const CategoryView = () => {
               //Remove deleted item from state
               setBicycles((prevBicycles) => prevBicycles.filter((bike) => bike.id !== id));
           
-              // Navigate after deletion (optional)
+              // Navigate after delete
               navigate(`/category/${bicycleCategory}`);
             } catch (error) {
               console.error("Error deleting bicycle:", error);

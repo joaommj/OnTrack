@@ -15,6 +15,7 @@
     flex-direction: column; /* Stacks elements vertically */ 
     overflow-x: hidden; /* Prevent horizontal overflow */
   }
+  
   /*****************NAVBAR!**************/
 .navbar {
   display: flex;

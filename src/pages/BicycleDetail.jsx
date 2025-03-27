@@ -17,9 +17,7 @@ const BicycleDetail = () => {
         })
         .catch ((err) => console.log(err));
             }, [bicycleId]);
-      if (!bicycles) {
-            return <p>Loading bicycle details...</p>; // Handle loading state
-      }
+      
       const navigate = useNavigate();
       const handleDelete = async (event, id) => {
         event.preventDefault();
@@ -34,7 +32,7 @@ const BicycleDetail = () => {
         }
       }
       const handleBack = () => {
-        navigate(-1); // Go back to the previous page
+        navigate(-1); 
         window.scrollTo(0, 0); 
       };
 

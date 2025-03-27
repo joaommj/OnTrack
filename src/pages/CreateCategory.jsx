@@ -35,7 +35,7 @@ const CreateCategory = () => {
         data
       );
       console.log("res: ", response.data);
-      //here we send the category to create to the json server
+      //send the category to create to the json server
       const res = await axios.post(`${API_URL}/categories`, {
         ...categories,
         category_url:response.data.secure_url
@@ -90,7 +90,7 @@ const CreateCategory = () => {
               required 
               placeholder="Enter link" 
               value={categories.link} 
-              onChange={handleCreate} // ✅ Correct function for updating state
+              onChange={handleCreate} //Correct function for updating state
             />
           </div>
           <button className="back-btn" type="submit">Submit Category</button>
