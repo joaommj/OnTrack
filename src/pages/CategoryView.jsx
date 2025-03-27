@@ -1,19 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import mountain from "../assets/mountain1.jpg";
-import road from "../assets/road.jpg";
-import gravel from "../assets/gravel1.png";
-import touring from "../assets/touring.jpg";
-import child from "../assets/child.jpg";
+
 import deletebtn from "../assets/delete.png";
 import infobtn from "../assets/info-icon.png";
-import electric from "../assets/electric.png";
 import backtop from "../assets/back-top.png";
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const CategoryView = () => {
     const [bicycles, setBicycles] = useState([]);
+    const [category, setCategories] = useState();
     const {bicycleCategory} = useParams();
+    useEffect(()=> {
+      axios.get("http://localhost:5005/categories")
+          .then((response) => {
+              console.log(response.data);
+              const categoryObject = response.data.find((oneCategory)=>{
+                return(
+                  oneCategory.name === bicycleCategory
+                )
+              })
+              console.log(categoryObject)
+              setCategories(categoryObject);
+          })
+      .catch ((err) => console.log(err));
+           }, []);
     useEffect(()=> {
     axios.get("http://localhost:5005/bicycles")
         .then((res) => {
@@ -48,30 +58,10 @@ const CategoryView = () => {
           };
           
   return (
-    <div> 
-    {bicycleCategory === "Road" && <div className='img-detail-container'>
+    <>
+    {category && <div className='img-detail-container'>
             <h3>{bicycleCategory}</h3>
-            <img src={road} alt="road-image" /> 
-    </div>}
-    {bicycleCategory === "Mountain" && <div className='img-detail-container'>
-            <h3>{bicycleCategory}</h3>
-            <img src={mountain} alt="mountain-image" /> 
-    </div>}
-    {bicycleCategory === "Touring" && <div className='img-detail-container'>
-            <h3>{bicycleCategory}</h3>
-            <img src={touring} alt="touring-image" /> 
-    </div>}
-    {bicycleCategory === "Child" && <div className='img-detail-container'>
-            <h3>{bicycleCategory}</h3>
-            <img src={child} alt="child-image" /> 
-    </div>}
-    {bicycleCategory === "Electric" && <div className='img-detail-container'>
-            <h3>{bicycleCategory}</h3>
-            <img src={electric} alt="electric-image" /> 
-    </div>}
-    {bicycleCategory === "Gravel" && <div className='img-detail-container'>
-            <h3>{bicycleCategory}</h3>
-            <img src={gravel} alt="gravel-image" /> 
+            <img src={category.category_url} alt="mountain-image" /> 
     </div>}
     {bicycles.map((oneBicycle)=>{
         if(oneBicycle.category === bicycleCategory){
@@ -102,19 +92,19 @@ const CategoryView = () => {
                     </div>
                 </div>
             </div>  
-        </section>
+        </section> 
         
-    );}
-    
-     })}
-     <button 
-  className="back-to-top-btn" 
-  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
->
-<img src={backtop} alt ="back to top button" />
+        );}
+         
+        })}
+        <button 
+      className="back-to-top-btn" 
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+    >
+    <img src={backtop} alt ="back to top button" />
 </button>
-    </div>
-  )
-}
+</>
+);
+};
 
-export default CategoryView
+export default CategoryView;

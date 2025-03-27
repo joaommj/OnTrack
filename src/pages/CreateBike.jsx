@@ -1,15 +1,16 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import backtop from "../assets/back-top.png";
 
 const CreateBike = () => {
+  const [category, setCategories] = useState([]);
   const [bicycles, setBicycles] = useState({
     model:"",
     category:"",
     color:"",
     size:"",
-    weight:"",
+    weight:"min=1",
     material:"",
     price:"",
     picture_url:"",
@@ -19,8 +20,16 @@ const CreateBike = () => {
   });
   const [image, setImage] = useState(null);
   const [image2, setImage2] = useState(null);
-
   const navigate = useNavigate();
+useEffect(()=> {
+      axios.get("http://localhost:5005/categories")
+          .then((response) => {
+              console.log(response.data);
+              setCategories(response.data);
+              })
+      .catch ((err) => console.log(err));
+           }, []);
+
   function handleCreate(event){
     const key = event.target.name;
     const infoSubmitted = event.target.value;
@@ -29,7 +38,6 @@ const CreateBike = () => {
 
   const uploadImage = async(image) => {
     const data = new FormData();
-
     data.append("file",image);
     data.append("upload_preset", "OnTrack");
     data.append("cloud_name", "dzne6fm6i");
@@ -39,32 +47,15 @@ const CreateBike = () => {
       data
     );
     console.log(cloudinaryResponse.data)
-
     return cloudinaryResponse.data.secure_url;
   }
 async function handleCreateProject (event) {
   event.preventDefault();
   try{
-    //before sending the announcement to the server, we need to send the image to the cloudinary
-    //create a form data
-    // const data = new FormData()
-    // data.append("file", image)
-    // data.append("file", image2)
-    // data.append("upload_preset", "OnTrack")
-    // data.append("cloud_name", "dzne6fm6i")
-    // //after create the form data and add all the properties
-    // //send an axios post request to cloudinary to 'host' your image
-    // const cloudinaryResponse = await axios.post(
-    //   "https://api.cloudinary.com/v1_1/dzne6fm6i/image/upload",
-    //   data
-    // );
-    // console.log(cloudinaryResponse.data)´
-
     const [imageUrl1,imageUrl2] = await Promise.all([
       uploadImage(image),
       uploadImage(image2)
     ])
-
     console.log("Image 1:",imageUrl1)
     console.log("Image 2:",imageUrl2)
 
@@ -94,20 +85,20 @@ const handleBack = () => {
               <label htmlFor="model">Model</label>
               <input type="text" id="model" name="model" required placeholder="Enter bike model" value={bicycles.model} onChange={handleCreate}/>
             </div>
-    
-            <div className="form-group">
-              <label htmlFor="category">Category</label>
-              <select id="category" name="category" value={bicycles.category} onChange={handleCreate} required>
-                <option value="" disabled>Select Category</option>
-                <option value="Mountain">Mountain</option>
-                <option value="Road">Road</option>
-                <option value="Gravel">Gravel</option>
-                <option value="Electric">Electric</option>
-                <option value="Child">Child</option>
-                <option value="Touring">Touring</option>
-              </select>
-            </div>
-    
+            
+    <div className="form-group" >
+      <label htmlFor="category">Category</label>
+      <select  id="category" name="category" value={bicycles.category} onChange={handleCreate} required>
+        <option value="" disabled>Select Category</option>
+        {category.map((oneCategory) => {
+    return (
+        <option value={oneCategory.name} key={oneCategory.id}>{oneCategory.name}</option>
+        );
+})}
+      </select>
+      </div>
+
+          
             <div className="form-group">
               <label htmlFor="color">Color</label>
               <input type="text" id="color" name="color" required placeholder="Enter bike color" value={bicycles.color} onChange={handleCreate}/>
@@ -115,7 +106,7 @@ const handleBack = () => {
     
             <div className="form-group">
               <label htmlFor="weight">Weight (kg)</label>
-              <input type="number" id="weight" name="weight" required placeholder="Enter bike weight in kg" value={bicycles.weight} onChange={handleCreate}/>
+              <input type="number" min={1} id="weight" name="weight" required placeholder="Enter bike weight in kg" value={bicycles.weight} onChange={handleCreate}/>
             </div>
     
             <div className="form-group">
