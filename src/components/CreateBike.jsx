@@ -76,7 +76,6 @@ const handleBack = () => {
   navigate(-1); // Go back to the previous page
   window.scrollTo(0, 0); 
 };
-
     return (
       <div className="create-bike-container"> {/* Wrapper with background */}
         <section className="announcement-form-container" onSubmit={handleCreateProject}>
@@ -91,11 +90,15 @@ const handleBack = () => {
       <label htmlFor="category">Category</label>
       <select  id="category" name="category" value={bicycles.category} onChange={handleCreate} required>
         <option value="" disabled>Select Category</option>
-        {category.map((oneCategory) => {
-    return (
-        <option value={oneCategory.name} key={oneCategory.id}>{oneCategory.name}</option>
-        );
-})}
+        {Array.isArray(category) ? (
+    category.map((oneCategory) => (
+        <option value={oneCategory.name} key={oneCategory.id}>
+            {oneCategory.name}
+        </option>
+    ))
+) : (
+    <option disabled>Loading categories...</option>
+)}
       </select>
       </div>
 
