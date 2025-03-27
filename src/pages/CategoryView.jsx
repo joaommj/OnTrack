@@ -5,13 +5,14 @@ import infobtn from "../assets/info-icon.png";
 import backtop from "../assets/back-top.png";
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { API_URL } from '../config/apiConfig';
 
 const CategoryView = () => {
     const [bicycles, setBicycles] = useState([]);
     const [category, setCategories] = useState();
     const {bicycleCategory} = useParams();
     useEffect(()=> {
-      axios.get("http://localhost:5005/categories")
+      axios.get(`${API_URL}/categories`)
           .then((response) => {
               console.log(response.data);
               const categoryObject = response.data.find((oneCategory)=>{
@@ -25,7 +26,7 @@ const CategoryView = () => {
       .catch ((err) => console.log(err));
            }, []);
     useEffect(()=> {
-    axios.get("http://localhost:5005/bicycles")
+    axios.get(`${API_URL}/bicycles`)
         .then((res) => {
             console.log(res.data);
             setBicycles(res.data);
@@ -41,7 +42,7 @@ const CategoryView = () => {
             }
           
             try {
-              await axios.delete(`http://localhost:5005/bicycles/${id}`);
+              await axios.delete(`${API_URL}/bicycles/${id}`);
           
               //Remove deleted item from state
               setBicycles((prevBicycles) => prevBicycles.filter((bike) => bike.id !== id));

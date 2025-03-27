@@ -4,13 +4,14 @@ import backtop from "../assets/back-top.png";
 import deletebtn from "../assets/delete.png";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_URL } from '../config/apiConfig';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5005/categories")
+    axios.get(`${API_URL}/categories`)
       .then((res) => {
         console.log(res.data);
         setCategories(res.data);
@@ -27,7 +28,7 @@ const HomePage = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:5005/categories/${id}`);
+      await axios.delete(`${API_URL}/categories/${id}`);
 
       // Remove the deleted item from the state without reloading
       setCategories((prevCategories) =>

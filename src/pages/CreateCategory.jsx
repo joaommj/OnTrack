@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import backtop from "../assets/back-top.png";
+import { API_URL } from '../config/apiConfig';
 
 const CreateCategory = () => {
   const [image, setImage] = useState(null);
@@ -35,7 +36,7 @@ const CreateCategory = () => {
       );
       console.log("res: ", response.data);
       //here we send the category to create to the json server
-      const res = await axios.post("http://localhost:5005/categories", {
+      const res = await axios.post(`${API_URL}/categories`, {
         ...categories,
         category_url:response.data.secure_url
       });

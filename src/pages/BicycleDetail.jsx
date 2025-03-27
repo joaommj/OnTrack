@@ -4,12 +4,13 @@ import deletebtn from "../assets/delete.png";
 import editbtn from "../assets/edit-icon.png";
 import backtop from "../assets/back-top.png";
 import axios from 'axios';
+import { API_URL } from '../config/apiConfig';
 
 const BicycleDetail = () => {
   const [bicycles, setBicycles] = useState([]);
   const {bicycleId} = useParams();
   useEffect (()=>{
-    axios.get(`http://localhost:5005/bicycles/${bicycleId}`)
+    axios.get(`${API_URL}/bicycles/${bicycleId}`)
         .then((res) => {
             console.log(res.data);
             setBicycles(res.data);
@@ -23,7 +24,7 @@ const BicycleDetail = () => {
       const handleDelete = async (event, id) => {
         event.preventDefault();
         try{
-          await axios.delete (`http://localhost:5005/bicycles/${bicycleId}`);
+          await axios.delete (`${API_URL}/bicycles/${bicycleId}`);
           console.log("Deleted!");
           
                navigate(`/category/${bicycles.category}`);

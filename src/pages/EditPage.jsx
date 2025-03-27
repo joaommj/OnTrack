@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import backtop from "../assets/back-top.png";
 
 import axios from "axios";
+import { API_URL } from "../config/apiConfig";
 
 const EditPage = () => {
   const [bicycle, setBicycle] = useState(null); // Store a single bicycle object
@@ -13,7 +14,7 @@ const EditPage = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/bicycles/${bicycleId}`)
+      .get(`${API_URL}/bicycles/${bicycleId}`)
       .then((resp) => {
         setBicycle(resp.data);
       })
@@ -26,7 +27,7 @@ const EditPage = () => {
   const handleUpdateBicycle = async (event) => {
     event.preventDefault();
     try {
-      const res = await axios.put(`http://localhost:5005/bicycles/${bicycleId}`, bicycle);
+      const res = await axios.put(`${API_URL}/bicycles/${bicycleId}`, bicycle);
       console.log("Updated!", res.data);
       setBicycle(res.data); //way to update an object
 

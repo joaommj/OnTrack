@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import backtop from "../assets/back-top.png";
+import { API_URL } from '../config/apiConfig';
 
 const CreateBike = () => {
   const [category, setCategories] = useState([]);
@@ -22,7 +23,7 @@ const CreateBike = () => {
   const [image2, setImage2] = useState(null);
   const navigate = useNavigate();
 useEffect(()=> {
-      axios.get("http://localhost:5005/categories")
+      axios.get(`${API_URL}/categories`)
           .then((response) => {
               console.log(response.data);
               setCategories(response.data);
@@ -60,7 +61,7 @@ async function handleCreateProject (event) {
     console.log("Image 2:",imageUrl2)
 
     //this is where we send the project to the json server
-    const res = await axios.post ("http://localhost:5005/bicycles", {
+    const res = await axios.post (`${API_URL}/bicycles`, {
       ...bicycles, 
       picture_url:imageUrl1, picture_detailed_url:imageUrl2
     });

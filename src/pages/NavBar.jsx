@@ -5,6 +5,7 @@ import logo from "../assets/logo.png";
 import { FiMenu, FiX } from "react-icons/fi"; // Import icons
 import { FaMapSigns } from 'react-icons/fa';
 import axios from 'axios';
+import { API_URL } from '../config/apiConfig';
 const NavBar = () => {
   const [category, setCategories] = useState([]);
   const [bicycle, setBicycle] = useState([]); // Store bicycle data
@@ -15,7 +16,7 @@ const NavBar = () => {
   useEffect(() => {
     async function getAllBicycle() {
       try {
-        const res = await fetch("http://localhost:5005/bicycles");
+        const res = await fetch(`${API_URL}/bicycles`);
         const parsed = await res.json();
         setBicycle(parsed); 
       } catch (error) {
@@ -25,7 +26,7 @@ const NavBar = () => {
     getAllBicycle();
   }, []);
   useEffect(() => {
-    axios.get("http://localhost:5005/categories") 
+    axios.get(`${API_URL}/categories`) 
     .then((response) =>{
       console.log(response.data);
        setCategories(response.data);
